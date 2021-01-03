@@ -86,17 +86,31 @@ void D_DoomLoop(void)
 }
 ```
 
-Sono arrivato a pag.264 del libro, quando inizia a parlare dell'AI.
+There is no scripting language in DOOM: an opponent is configured via the text
+file `multigen.txt`, this file is parsed by `multigen` tool and compiled into
+C source code (`info.h` and `info.c`).
 
-# Useful links:
+## Source code structure
+
+`d_*`: init/general code
+`g_*`: main game loop/control
+`i_*`: system-specific code
+`p_*`: game logic/behaviour
+`r_*`: rendering engine
+`t_*`: "Thinker" functions set to be called each clock tic for some purpose
+    (eg, moving platforms or flickering lights)
+
+* Enemies description is located at `src/doom/info.h` and `src/doom/info.c`
+* Enemy behaviours is located at `src/doom/p_enemy.c`
+* Weapons handling is located at `src/doom/p_pspr.c`
+
+## Useful links:
 
 * doom.fandom.com/wiki/Category:Doom_engine
 * doom.fandom.com/wiki/Doom_source_code_files
 * doomwiki.org/wiki/Doom_source_code
-* doom.fandom.com/wiki/Doom_source_code
-* doomwiki.org/wiki/Doom_source_code_functions
-* doomwiki.org/wiki/Doom_source_code
 
-# Useful resources
+## Useful resources
 
 * Game Engine Black Book Doom (by Fabien Sanglard)
+

@@ -103,6 +103,7 @@ C source code (`info.h` and `info.c`).
 * Enemies description is located at `src/doom/info.h` and `src/doom/info.c`
 * Enemy behaviours is located at `src/doom/p_enemy.c`
 * Weapons handling is located at `src/doom/p_pspr.c`
+* Controls binding is located at `src/m_controls.c` 
 
 ## Useful links:
 

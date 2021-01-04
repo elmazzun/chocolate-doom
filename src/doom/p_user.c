@@ -55,12 +55,13 @@ P_Thrust
   fixed_t	move ) 
 {
     angle >>= ANGLETOFINESHIFT;
-    
+    printf("BEFORE: momx %d, momy %d\n",
+        player->mo->momx, player->mo->momy);
     player->mo->momx += FixedMul(move,finecosine[angle]); 
     player->mo->momy += FixedMul(move,finesine[angle]);
+    printf("AFTER: momx %d, momy %d\n",
+        player->mo->momx, player->mo->momy);
 }
-
-
 
 
 //
@@ -150,13 +151,26 @@ void P_MovePlayer (player_t* player)
     //  if not onground.
     onground = (player->mo->z <= player->mo->floorz);
 	
-    if (cmd->forwardmove && onground)
-	P_Thrust (player, player->mo->angle, cmd->forwardmove*2048);
-    
-    if (cmd->sidemove && onground)
-	P_Thrust (player, player->mo->angle-ANG90, cmd->sidemove*2048);
+    if (cmd->forwardmove && onground) {
+        printf("Move forward\n");
+	    P_Thrust (player, player->mo->angle, cmd->forwardmove*2048);
+        printf("\n");
+    }
 
-    if ( (cmd->forwardmove || cmd->sidemove) 
+    if (cmd->sidemove && onground) {
+        printf("Move side\n");
+	    P_Thrust (player, player->mo->angle-ANG90, cmd->sidemove*2048);
+        printf("\n");
+    }
+
+    if (cmd->upmove/* && onground*/) {
+        printf("Move up\n");
+        // player->mo->momz = 25;
+	    // P_Thrust (player, player->mo->angle, cmd->upmove*2048);
+        player->mo->z = 1;
+        printf("\n");
+    }
+    if ( (cmd->forwardmove || cmd->sidemove || cmd->upmove) 
 	 && player->mo->state == &states[S_PLAY] )
     {
 	P_SetMobjState (player->mo, S_PLAY_RUN1);

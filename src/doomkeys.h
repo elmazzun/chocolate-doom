@@ -43,6 +43,7 @@
 #define KEY_F10		(0x80+0x44)
 #define KEY_F11		(0x80+0x57)
 #define KEY_F12		(0x80+0x58)
+#define KEY_SPACE   0x20
 
 #define KEY_BACKSPACE	0x7f
 #define KEY_PAUSE	0xff

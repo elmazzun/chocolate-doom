@@ -1039,6 +1039,12 @@ static default_t extra_defaults_list[] =
     CONFIG_VARIABLE_INT(mouseb_use),
 
     //!
+    // JUMP
+    //
+
+    CONFIG_VARIABLE_INT(key_doom_jump),
+
+    //!
     // Mouse button to move backwards.
     //
 

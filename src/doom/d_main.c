@@ -1400,6 +1400,7 @@ void D_DoomMain(void)
         int scale = 200;
         extern int forwardmove[2];
         extern int sidemove[2];
+        extern int upmove[2];
 
         if (p < myargc - 1)
             scale = atoi(myargv[p + 1]);
@@ -1412,6 +1413,8 @@ void D_DoomMain(void)
         forwardmove[1] = forwardmove[1] * scale / 100;
         sidemove[0] = sidemove[0] * scale / 100;
         sidemove[1] = sidemove[1] * scale / 100;
+        upmove[0] = upmove[0] * scale / 100;
+        upmove[1] = upmove[1] * scale / 100;
     }
 
     // init subsystems

@@ -3,4 +3,5 @@
 make -j8 && \
     sudo make install && \
     ./src/chocolate-doom \
-    -iwad doom.wad
+    -iwad doom.wad \
+    -window

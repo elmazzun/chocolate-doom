@@ -55,12 +55,13 @@ P_Thrust
   fixed_t	move ) 
 {
     angle >>= ANGLETOFINESHIFT;
-    printf("BEFORE: momx %d, momy %d\n",
-        player->mo->momx, player->mo->momy);
+    printf("[P_Thrust] BEFORE: momx %d, momy %d, momz %d\n",
+        player->mo->momx, player->mo->momy, player->mo->momz);
     player->mo->momx += FixedMul(move,finecosine[angle]); 
     player->mo->momy += FixedMul(move,finesine[angle]);
-    printf("AFTER: momx %d, momy %d\n",
-        player->mo->momx, player->mo->momy);
+    // player->mo->momz += FixedMul(move,finesine[angle]);
+    printf("[P_Thrust] AFTER: momx %d, momy %d, momz %d\n",
+        player->mo->momx, player->mo->momy, player->mo->momz);
 }
 
 
@@ -152,28 +153,28 @@ void P_MovePlayer (player_t* player)
     onground = (player->mo->z <= player->mo->floorz);
 	
     if (cmd->forwardmove && onground) {
-        printf("Move forward\n");
+        printf("[P_MovePlayer] Move forward\n");
 	    P_Thrust (player, player->mo->angle, cmd->forwardmove*2048);
-        printf("\n");
     }
 
     if (cmd->sidemove && onground) {
-        printf("Move side\n");
+        printf("[P_MovePlayer] Move side\n");
 	    P_Thrust (player, player->mo->angle-ANG90, cmd->sidemove*2048);
-        printf("\n");
     }
 
-    if (cmd->upmove/* && onground*/) {
-        printf("Move up\n");
-        // player->mo->momz = 25;
-	    // P_Thrust (player, player->mo->angle, cmd->upmove*2048);
-        player->mo->z = 1;
-        printf("\n");
+    // Jump only allowed if player is on the ground
+    if (cmd->upmove && onground) {
+        printf("[P_MovePlayer] Move up\n");
+        player->mo->momz = 100;
+        player->mo->z = 10000000;
+	    P_Thrust (player, player->mo->angle, cmd->upmove*2048);
     }
     if ( (cmd->forwardmove || cmd->sidemove || cmd->upmove) 
 	 && player->mo->state == &states[S_PLAY] )
     {
-	P_SetMobjState (player->mo, S_PLAY_RUN1);
+        printf("[P_MovePlayer] about to call P_SetMobjState\n");
+	    P_SetMobjState (player->mo, S_PLAY_RUN1);
+        printf("\n");
     }
 }	
 
@@ -239,6 +240,7 @@ void P_DeathThink (player_t* player)
 
 //
 // P_PlayerThink
+// This always runs in loop
 //
 void P_PlayerThink (player_t* player)
 {

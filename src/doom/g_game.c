@@ -309,6 +309,7 @@ static int G_NextWeapon(int direction)
 // Builds a ticcmd from all of the available inputs
 // or reads it from the demo buffer.
 // If recording a demo, write it out
+// This always runs in a loop
 //
 void G_BuildTiccmd(ticcmd_t *cmd, int maketic)
 {
@@ -350,6 +351,7 @@ void G_BuildTiccmd(ticcmd_t *cmd, int maketic)
     // Jump
     if (gamekeydown[key_doom_jump])
     {
+        printf("[G_BuildTiccmd] jump\n");
         up += upmove[speed];
     }
 

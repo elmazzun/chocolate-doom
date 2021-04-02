@@ -50,6 +50,7 @@ int test;
 
 #define MOBJ_CYCLE_LIMIT 1000000
 
+// This always runs in a loop
 boolean
 P_SetMobjState
 ( mobj_t*	mobj,
@@ -57,7 +58,6 @@ P_SetMobjState
 {
     state_t*	st;
     int	cycle_counter = 0;
-
     do
     {
 	if (state == S_NULL)

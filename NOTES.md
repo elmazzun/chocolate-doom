@@ -86,6 +86,22 @@ void D_DoomLoop(void)
 }
 ```
 
+Inside `D_DoomLoop` loop there is `TryRunTics`, where game simulation happens:
+this function decides how many tics to run and run them; a `tic` is Doom's
+unit of time; a tic is 28 ms (35 tics in a second).
+
+#### Fixed-point arithmetic
+
+```c
+#define FRACBITS 16
+#define FRACUNIT (1<<FRACBITS)
+typedef int fixed_t;
+```
+
+#### Input
+
+Sono arrivato a pagina 248: sembra interessante per il salto che voglio implementare
+
 There is no scripting language in DOOM: an opponent is configured via the text
 file `multigen.txt`, this file is parsed by `multigen` tool and compiled into
 C source code (`info.h` and `info.c`).
